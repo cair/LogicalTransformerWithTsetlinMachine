@@ -39,10 +39,14 @@ for i in range(2):
 	tms[i] = []
 	print("\nTraining token models for class", i, "\n")
 	for j in range(number_of_features):
+		# This is where you create a local perspective for each token (self-attention)
+
 		tm = TMClassifier(10, 15, 1.1)
-		
+
 		# Extract prediction target from column 'j' in X_train, only looking at training examples from class 'i'
 		Y_train_token = X_train[:,j][Y_train==i].reshape(-1)
+
+		# Remove prediction target from column 'j' in X_train
 		cols = np.arange(X_train.shape[1]) != j
 		X_train_token = X_train[:,cols][Y_train==i]
 
